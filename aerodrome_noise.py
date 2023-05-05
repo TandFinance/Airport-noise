@@ -1,43 +1,43 @@
 import streamlit as st
-import pandas as pd
 
-# Load aircraft options from csv file
-aircraft_options = pd.read_csv("aircraft_option.csv")["AC_TYPE"].tolist()
+# Set page config
+st.set_page_config(page_title="IFP NOISE", page_icon=":sound:", layout="wide")
 
-# Set page title and background image
-st.set_page_config(page_title="Noise", page_icon=None, layout="wide", initial_sidebar_state="auto")
+# Set background image
+main_bg = "background.png"
 st.markdown(f"""
     <style>
         .reportview-container {{
-            background: url("background.png");
+            background: url({main_bg}) no-repeat center center fixed;
             background-size: cover;
         }}
-        .title {{
-            font-size: 50px;
-            font-weight: bold;
-            color: blue;
-            text-shadow: 2px 2px 4px #000000;
-        }}
     </style>
-    <div class="title">IFP NOISE</div>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# Define input fields
-ddmmss = st.text_input("Reference point coordinates (DD-MM-SS)")
-rayon = st.number_input("Rayon (Km)", value=0, step=1)
-pas = st.number_input("Pas (m)", value=0, step=1)
-temp = st.number_input("T°C", value=0, step=1)
-densite = st.number_input("Densité", value=0, step=1)
-aircraft = st.selectbox("Aircraft", aircraft_options)
+# Add title
+st.markdown("<h1 style='text-align: center; color: blue; font-weight: bold;'>IFP NOISE</h1>", unsafe_allow_html=True)
 
-# Define submit button
-if st.button("Submit"):
-    # Do something with the input data
-    st.write("Input data:")
-    st.write(f"Reference point coordinates: {ddmmss}")
-    st.write(f"Rayon (Km): {rayon}")
-    st.write(f"Pas (m): {pas}")
-    st.write(f"T°C: {temp}")
-    st.write(f"Densité: {densite}")
-    st.write(f"Aircraft: {aircraft}")
+# Add groups
+parameters = st.beta_expander("Parameters")
+mouvements = st.beta_expander("Mouvements")
 
+# Add inputs to parameters group
+with parameters:
+    st.subheader("Reference Coordinate")
+    col1, col2 = st.beta_columns(2)
+    with col1:
+        lat = st.number_input("Latitude (deg)", value=0, step=1)
+    with col2:
+        lon = st.number_input("Longitude (deg)", value=0, step=1)
+
+    st.number_input("Rayon (km)", value=0, step=1)
+    st.number_input("Pas (m)", value=0, step=1)
+    st.number_input("T°C", value=0, step=1)
+    st.number_input("Densité", value=0, step=1)
+
+# Add combobox to mouvements group
+with mouvements:
+    st.subheader("Aircraft")
+    aircraft_options = st.read_csv("aircraft_options.csv")["Type"].tolist()
+    aircraft_choice = st.selectbox("Mouvements", ["Arrivée", "Départ"])
+    aircraft_type = st.selectbox("Type", aircraft_options)
