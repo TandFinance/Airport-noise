@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # Load aircraft options from csv file
-aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
+aircraft_options = pd.read_csv("aircraft_option.csv")["AC_TYPE"].tolist()
 
 # Set page title and background image
 st.set_page_config(page_title="Noise", page_icon=None, layout="wide", initial_sidebar_state="auto")
