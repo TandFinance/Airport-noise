@@ -195,4 +195,17 @@ def aircraft():
 "PA42",
 "SABR80",
 "SD330",
-"SF340"]
+"SF340", 
+    # add remaining aircraft options here
+]
+aircraft = st.sidebar.selectbox("Select an Aircraft", aircraft_options)
+
+# Add some text to the page
+st.write("You selected the following field parameters:")
+st.write(f"- Reference Point Coordinates: {ref_point}")
+st.write(f"- Rayon (Km): {rayon_km}")
+st.write(f"- Pas (m): {pas_m}")
+st.write(f"- T°C: {temp_c}")
+st.write(f"- Densité: {density}")
+st.write("")
+st.write(f"You selected the following aircraft: {aircraft}")
