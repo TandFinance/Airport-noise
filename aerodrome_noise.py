@@ -42,7 +42,7 @@ def field_parameters():
 
 def aircraft():
     st.header("Aircraft")
-    options = [
+    aircraft_options = [
         "1900D",
         "707",
         "707120",
