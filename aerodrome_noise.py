@@ -1,5 +1,5 @@
 import streamlit as st
-
+import pandas as pd
 # Set page config
 st.set_page_config(page_title="IFP NOISE", page_icon=":sound:", layout="wide")
 
@@ -38,6 +38,7 @@ with parameters:
 # Add combobox to mouvements group
 with mouvements:
     st.subheader("Aircraft")
-    aircraft_options = st.read_csv("aircraft_options.csv")["Type"].tolist()
+    # Read the CSV file using Pandas
+    aircraft_options = pd.read_csv("aircraft_options.csv")["Type"].tolist()
     aircraft_choice = st.selectbox("Mouvements", ["Arrivée", "Départ"])
     aircraft_type = st.selectbox("Type", aircraft_options)
