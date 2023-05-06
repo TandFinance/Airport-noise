@@ -1,5 +1,5 @@
 import streamlit as st
-
+import pandas as pd
 # Set page title and background image
 st.set_page_config(page_title="IFP NOISE", page_icon=None, layout="wide", initial_sidebar_state="expanded")
 bg_image = "background.png"
