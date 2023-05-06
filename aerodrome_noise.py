@@ -1,63 +1,73 @@
 import streamlit as st
-import pandas as pd
-
-# Load aircraft options from file
-aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
 
 # Set page title and background image
-st.set_page_config(page_title="IFP NOISE", page_icon=None, layout="wide")
-st.markdown(
-    """
-    <style>
-        .main {
-            background-image: url("background.png");
-            background-size: cover;
-        }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
+st.set_page_config(page_title="IFP NOISE", page_icon=None, layout="wide", initial_sidebar_state="expanded")
+bg_image = "background.png"
+st.markdown(f'<style>body{{background-image: url("{bg_image}");background-size: cover;}}</style>', unsafe_allow_html=True)
 
-# Create parameter groups
-st.markdown("<h1 style='color:blue; font-weight:bold;'>IFP NOISE</h1>", unsafe_allow_html=True)
-with st.beta_container():
-    st.markdown("<h2 style='color:white; font-weight:bold;'>Parameters</h2>", unsafe_allow_html=True)
+# Define function to convert degree, minute, second to decimal degrees
+def dms_to_dd(d: float, m: float, s: float, dir: str) -> float:
+    dd = d + m / 60 + s / 3600
+    if dir in ["S", "W"]:
+        dd = -dd
+    return dd
 
-    with st.beta_container():
-        st.markdown("<h3 style='color:white;'>Coordonnées de points de réference</h3>", unsafe_allow_html=True)
-        lat_deg = st.number_input("Latitude (degré)", value=0, step=1)
-        lat_min = st.number_input("Latitude (minute)", value=0, step=1)
-        lat_sec = st.number_input("Latitude (seconde)", value=0, step=1)
-        lat_dir = st.selectbox("Latitude (direction)", ("Nord", "Sud"))
+# Define function to convert decimal degrees to degree, minute, second
+def dd_to_dms(dd: float) -> tuple:
+    d = int(dd)
+    md = abs(dd - d) * 60
+    m = int(md)
+    s = (md - m) * 60
+    return d, m, s
 
-        lon_deg = st.number_input("Longitude (degré)", value=0, step=1)
-        lon_min = st.number_input("Longitude (minute)", value=0, step=1)
-        lon_sec = st.number_input("Longitude (seconde)", value=0, step=1)
-        lon_dir = st.selectbox("Longitude (direction)", ("Est", "Ouest"))
+# Define function to validate latitude or longitude input
+def validate_lat_long(d: int, m: int, s: int, dir: str) -> bool:
+    if not (0 <= d <= 90):
+        return False
+    if not (0 <= m < 60):
+        return False
+    if not (0 <= s < 60):
+        return False
+    if dir not in ["N", "S", "E", "W"]:
+        return False
+    return True
 
-    with st.beta_container():
-        st.markdown("<h3 style='color:white;'>Rayon (m)</h3>", unsafe_allow_html=True)
-        rayon = st.slider("Rayon", min_value=100, max_value=2000, step=20, value=100)
+# Define function to validate other inputs
+def validate_input(val: str, min_val: float, max_val: float, decimal_places: int) -> bool:
+    try:
+        val = float(val)
+    except ValueError:
+        return False
+    if not (min_val <= val <= max_val):
+        return False
+    if round(val, decimal_places) != val:
+        return False
+    return True
 
-    with st.beta_container():
-        st.markdown("<h3 style='color:white;'>Pas (m)</h3>", unsafe_allow_html=True)
-        pas = st.slider("Pas", min_value=50, max_value=1000, step=10, value=100)
+# Load aircraft options from CSV file
+aircraft_options = st.cache(pd.read_csv)("aircraft_option.csv")["Type"].tolist()
 
-    with st.beta_container():
-        st.markdown("<h3 style='color:white;'>T°C</h3>", unsafe_allow_html=True)
-        temperature = st.number_input("T°C", value=0)
+# Define UI layout
+with st.sidebar:
+    st.header("IFP NOISE")
+    st.subheader("Paramètres")
+    with st.beta_expander("Coordonnées de points de référence"):
+        col1, col2 = st.beta_columns(2)
+        with col1:
+            st.write("Latitude")
+            lat_deg = st.selectbox("Degré", range(0, 91))
+            lat_min = st.selectbox("Minute", range(0, 60))
+            lat_sec = st.selectbox("Seconde", range(0, 60))
+            lat_dir = st.selectbox("Direction", ["N", "S"])
+        with col2:
+            st.write("Longitude")
+            lon_deg = st.selectbox("Degré", range(0, 181))
+            lon_min = st.selectbox("Minute", range(0, 60))
+            lon_sec = st.selectbox("Seconde", range(0, 60))
+            lon_dir = st.selectbox("Direction", ["E", "W"])
+    with st.beta_expander("Autres paramètres"):
+        rayon = st.slider("Rayon (m)", 100, 1000, 100, 20)
+        pas = st.slider("Pas (m)", 50, 500, 100)
+        temp = st.number_input("Température (°C)", step=0.1, min_value=-273.15, max_value=100, value=15)
+       
 
-    with st.beta_container():
-        st.markdown("<h3 style='color:white;'>Densité</h3>", unsafe_allow_html=True)
-        densite = st.slider("Densité", min_value=0.7, max_value=2.0, step=0.1, value=1.0)
-
-    with st.beta_container():
-        st.markdown("<h3 style='color:white;'>Aircraft</h3>", unsafe_allow_html=True)
-        aircraft_type = st.selectbox("Type", options=aircraft_options)
-        mouvement = st.selectbox("Mouvements", options=["Arrivée", "Départ"])
-
-    st.markdown("<br>", unsafe_allow_html=True)
-    st.markdown("<br>", unsafe_allow_html=True)
-
-    with st.beta_container():
-        st.button("Calculate Noise")
