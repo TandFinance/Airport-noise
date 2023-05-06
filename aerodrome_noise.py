@@ -1,59 +1,52 @@
 import streamlit as st
 import pandas as pd
 
-# Load aircraft options from CSV
-aircraft_options = pd.read_csv('aircraft_option.csv')['Type'].tolist()
+# Set page title
+st.set_page_config(page_title="Noise.py")
 
-# Set up page layout and background image
-st.set_page_config(page_title="Noise", page_icon=":sound:", layout="wide")
-bg_image = "background.png"
-page_bg_img = '''
-<style>
-body {
-background-image: url("https://cdn.pixabay.com/photo/2017/08/30/12/45/girl-2696947_960_720.jpg");
-background-size: cover;
-}
-</style>
-'''
-st.markdown(page_bg_img, unsafe_allow_html=True)
+# Load aircraft options from CSV file
+aircraft_options = pd.read_csv("aircraft_option.csv", usecols=["Type"])
 
-# Add page title
-st.markdown("<h1 style='text-align: center; color: blue;'>IFP NOISE</h1>", unsafe_allow_html=True)
-
-# Add field parameters group
-with st.beta_container():
-    st.header("Field Parameters")
-    col1, col2, col3, col4, col5 = st.beta_columns(5)
+# Define input fields
+with st.form(key="input_form"):
+    # Group for parameters
+    st.write("Parameters:")
+    col1, col2, col3, col4 = st.beta_columns(4)
     with col1:
-        lat_deg = st.number_input("Latitude (deg)", min_value=0, max_value=90)
+        latitude_degree = st.number_input("Latitude (°)", min_value=-90, max_value=90, value=0)
     with col2:
-        lat_min = st.number_input("Latitude (min)", min_value=0, max_value=59)
+        latitude_minute = st.number_input("Minutes", min_value=0, max_value=59, value=0)
     with col3:
-        lat_sec = st.number_input("Latitude (sec)", min_value=0, max_value=59)
+        latitude_seconde = st.number_input("Seconds", min_value=0, max_value=59, value=0)
     with col4:
-        rayon = st.number_input("Rayon (km)", min_value=0, max_value=999)
-    with col5:
-        pas = st.number_input("Pas (m)", min_value=0, max_value=999)
+        latitude_orientation = st.selectbox("Orientation", ["N", "S"])
 
-    st.number_input("T°C", min_value=0, max_value=999)
-    st.number_input("Densité", min_value=0, max_value=999)
+    col1, col2 = st.beta_columns(2)
+    with col1:
+        rayon = st.slider("Rayon (m)", min_value=100, max_value=10000, step=20, value=500)
+    with col2:
+        pas = st.number_input("Pas (m)", min_value=50, value=100)
 
-# Add aircraft group with movement combobox
-with st.beta_container():
-    st.header("Aircraft")
-    mouvements = st.selectbox("Mouvements", ["Arrivée", "Départ"])
-    aircraft_type = st.selectbox("Aircraft Type", aircraft_options)
+    temperature = st.number_input("Temperature (°C)", value=20.0)
 
-# Add a button to submit the form
-if st.button("Submit"):
-    # Combine latitude inputs into single value
-    latitude = lat_deg + (lat_min / 60) + (lat_sec / 3600)
+    densite = st.number_input("Densité", min_value=0.7, max_value=2.0, value=1.0)
 
-    # Print form values to console
-    print("Latitude:", latitude)
-    print("Rayon:", rayon)
-    print("Pas:", pas)
-    print("T°C:", st.session_state["T°C"])
-    print("Densité:", st.session_state["Densité"])
-    print("Mouvements:", mouvements)
-    print("Aircraft Type:", aircraft_type)
+    # Group for aircraft options
+    st.write("Aircraft:")
+    aircraft_choice = st.selectbox("Mouvements", aircraft_options["Type"])
+
+    # Submit button
+    submitted = st.form_submit_button(label="Submit")
+
+# Show results if submitted
+if submitted:
+    st.write("Parameters:")
+    st.write(f"Latitude: {latitude_degree}° {latitude_minute}' {latitude_seconde}\" {latitude_orientation}")
+    st.write(f"Rayon: {rayon}m")
+    st.write(f"Pas: {pas}m")
+    st.write(f"Temperature: {temperature}°C")
+    st.write(f"Densité: {densite}")
+
+    st.write("Aircraft:")
+    st.write(f"Type: {aircraft_choice}")
+
