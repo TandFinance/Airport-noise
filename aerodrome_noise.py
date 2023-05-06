@@ -1,73 +1,65 @@
 import streamlit as st
 import pandas as pd
-# Set page title and background image
-st.set_page_config(page_title="IFP NOISE", page_icon=None, layout="wide", initial_sidebar_state="expanded")
-bg_image = "background.png"
-st.markdown(f'<style>body{{background-image: url("{bg_image}");background-size: cover;}}</style>', unsafe_allow_html=True)
 
-# Define function to convert degree, minute, second to decimal degrees
-def dms_to_dd(d: float, m: float, s: float, dir: str) -> float:
-    dd = d + m / 60 + s / 3600
-    if dir in ["S", "W"]:
-        dd = -dd
+# Set page configuration
+st.set_page_config(page_title="IFP NOISE", page_icon=":sound:", layout="wide")
+
+# Load aircraft options from file
+aircraft_options = pd.read_csv("aircraft_options.csv")["Type"].tolist()
+
+# Define function to convert degree-minute-second coordinates to decimal degrees
+def dms_to_dd(degrees, minutes, seconds, direction):
+    dd = float(degrees) + float(minutes) / 60 + float(seconds) / (60 * 60)
+    if direction == "S" or direction == "W":
+        dd *= -1
     return dd
 
-# Define function to convert decimal degrees to degree, minute, second
-def dd_to_dms(dd: float) -> tuple:
-    d = int(dd)
-    md = abs(dd - d) * 60
-    m = int(md)
-    s = (md - m) * 60
-    return d, m, s
+# Define sidebar content
+st.sidebar.image("background.png", use_column_width=True)
+st.sidebar.subheader("Parameters")
 
-# Define function to validate latitude or longitude input
-def validate_lat_long(d: int, m: int, s: int, dir: str) -> bool:
-    if not (0 <= d <= 90):
-        return False
-    if not (0 <= m < 60):
-        return False
-    if not (0 <= s < 60):
-        return False
-    if dir not in ["N", "S", "E", "W"]:
-        return False
-    return True
+# Add reference point coordinates
+ref_lat_deg = st.sidebar.number_input("Latitude (degrees)", value=48)
+ref_lat_min = st.sidebar.number_input("Latitude (minutes)", value=50)
+ref_lat_sec = st.sidebar.number_input("Latitude (seconds)", value=0)
+ref_lat_dir = st.sidebar.selectbox("Latitude direction", ["N", "S"])
+ref_lon_deg = st.sidebar.number_input("Longitude (degrees)", value=2)
+ref_lon_min = st.sidebar.number_input("Longitude (minutes)", value=20)
+ref_lon_sec = st.sidebar.number_input("Longitude (seconds)", value=0)
+ref_lon_dir = st.sidebar.selectbox("Longitude direction", ["E", "W"])
 
-# Define function to validate other inputs
-def validate_input(val: str, min_val: float, max_val: float, decimal_places: int) -> bool:
-    try:
-        val = float(val)
-    except ValueError:
-        return False
-    if not (min_val <= val <= max_val):
-        return False
-    if round(val, decimal_places) != val:
-        return False
-    return True
+# Convert reference point coordinates to decimal degrees
+ref_lat = dms_to_dd(ref_lat_deg, ref_lat_min, ref_lat_sec, ref_lat_dir)
+ref_lon = dms_to_dd(ref_lon_deg, ref_lon_min, ref_lon_sec, ref_lon_dir)
 
-# Load aircraft options from CSV file
-aircraft_options = st.cache(pd.read_csv)("aircraft_option.csv")["Type"].tolist()
+# Add radius, pas, temperature, and density inputs
+st.sidebar.subheader("Field parameters")
+radius = st.sidebar.slider("Radius (m)", 100, 1000, 100, 20)
+pas = st.sidebar.slider("Pas (m)", 50, 1000, 100, 50)
+temp = st.sidebar.number_input("Temperature (°C)", value=20.0, format="%.1f")
+density = st.sidebar.number_input("Density", value=1.2, min_value=0.7, max_value=2.0, format="%.2f")
 
-# Define UI layout
-with st.sidebar:
-    st.header("IFP NOISE")
-    st.subheader("Paramètres")
-    with st.beta_expander("Coordonnées de points de référence"):
-        col1, col2 = st.beta_columns(2)
-        with col1:
-            st.write("Latitude")
-            lat_deg = st.selectbox("Degré", range(0, 91))
-            lat_min = st.selectbox("Minute", range(0, 60))
-            lat_sec = st.selectbox("Seconde", range(0, 60))
-            lat_dir = st.selectbox("Direction", ["N", "S"])
-        with col2:
-            st.write("Longitude")
-            lon_deg = st.selectbox("Degré", range(0, 181))
-            lon_min = st.selectbox("Minute", range(0, 60))
-            lon_sec = st.selectbox("Seconde", range(0, 60))
-            lon_dir = st.selectbox("Direction", ["E", "W"])
-    with st.beta_expander("Autres paramètres"):
-        rayon = st.slider("Rayon (m)", 100, 1000, 100, 20)
-        pas = st.slider("Pas (m)", 50, 500, 100)
-        temp = st.number_input("Température (°C)", step=0.1, min_value=-273.15, max_value=100, value=15)
-       
+# Add aircraft movement selection
+st.sidebar.subheader("Aircraft")
+aircraft_movement = st.sidebar.selectbox("Movement", ["Arrivée", "Départ"], key="aircraft_movement")
+aircraft_type = st.sidebar.selectbox("Type", aircraft_options)
 
+# Define main content
+st.image("background.png", use_column_width=True)
+st.markdown("# IFP NOISE")
+
+# Display field parameters
+st.subheader("Field parameters")
+parameters_col1, parameters_col2 = st.columns(2)
+with parameters_col1:
+    st.markdown(f"**Reference point coordinates:** ({ref_lat_deg}° {ref_lat_min}' {ref_lat_sec}\" {ref_lat_dir}, {ref_lon_deg}° {ref_lon_min}' {ref_lon_sec}\" {ref_lon_dir})")
+    st.markdown(f"**Radius:** {radius} m")
+with parameters_col2:
+    st.markdown(f"**Pas:** {pas} m")
+    st.markdown(f"**Temperature:** {temp} °C")
+    st.markdown(f"**Density:** {density}")
+
+# Display aircraft information
+st.subheader("Aircraft")
+st.markdown(f"**Movement:** {aircraft_movement}")
+st.markdown(f"**Type:** {aircraft_type}")
