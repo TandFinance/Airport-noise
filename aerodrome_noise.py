@@ -39,6 +39,6 @@ with parameters:
 with mouvements:
     st.subheader("Aircraft")
     # Read the CSV file using Pandas
-    aircraft_options = pd.read_csv("aircraft_options.csv")["Type"].tolist()
+    aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
     aircraft_choice = st.selectbox("Mouvements", ["Arrivée", "Départ"])
     aircraft_type = st.selectbox("Type", aircraft_options)
