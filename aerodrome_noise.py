@@ -45,11 +45,11 @@ with st.beta_container():
                 colg = st.beta_columns(4)
                 with colg[0]:
                     lon_deg = st.number_input("Longitude (degrés)",min_value=0, max_value=90, value=0, step=1, key="lon_deg")
-                with colg[0]:
+                with colg[1]:
                     lon_min = st.number_input("Longitude (minutes)",min_value=0, max_value=90, value=0, step=1, key="lon_min")
-                with colg[0]:
+                with colg[2]:
                     lon_sec = st.number_input("Longitude (secondes)",min_value=0, max_value=90, value=0, step=1, key="lon_sec")
-                with colg[0]:
+                with colg[3]:
                     lon_dir = st.selectbox("Longitude (direction)", ["Est", "Ouest"], key="lon_dir")
     with st.beta_container():
         st.markdown("## Autres paramètres")
