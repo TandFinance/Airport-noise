@@ -78,10 +78,10 @@ with st.beta_container():
         densite = st.number_input("Densité", min_value=0.7, max_value=2.0, step=0.1, value=1.0, format="%.1f")
    
 st.markdown("<hr style='border-top: 2px solid blue;'>", unsafe_allow_html=True)
-    with st.beta_container():
+   with st.beta_container():
         st.markdown("## Type d'avion")
         aircraft_type = st.selectbox("Type", aircraft_options)
 
-    with st.beta_container():
+   with st.beta_container():
         st.markdown("## Mouvements")
         mouvements = st.selectbox("Mouvements", ["Arrivée", "Départ"])
