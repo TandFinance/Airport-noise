@@ -19,7 +19,11 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
-
+Title="IFP NOISE"
+Profil="background.png"
+with st.container ():
+    st.title(Title)
+    st.image(Profil)
 # Add parameters group
 with st.beta_container():
     st.markdown("# Parameters")
