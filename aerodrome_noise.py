@@ -10,21 +10,7 @@ Title="IFP NOISE"
 Profil="background.png"
 with st.container ():
     st.title(Title)
-    st.markdown(
-    f"""
-    <style>
-        .reportview-container {{
-            background: Profil no-repeat center center fixed; 
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-    #st.image(Profil)
+    st.image(Profil)
 # Add parameters group
 with st.beta_container():
     st.markdown("# Parameters")
