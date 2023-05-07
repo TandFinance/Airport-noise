@@ -9,7 +9,7 @@ st.markdown(
     f"""
     <style>
         .reportview-container {{
-            background: url("background.png") no-repeat center center fixed;
+            background: url("./background.png") no-repeat center center fixed; 
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
