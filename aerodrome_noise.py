@@ -33,7 +33,7 @@ with st.beta_container():
             lat_min = st.number_input("Latitude (minutes)", value=0, step=1, key="lat_min")
             lat_sec = st.number_input("Latitude (secondes)", value=0, step=1, key="lat_sec")
             lat_dir = st.selectbox("Latitude (direction)", ["Nord", "Sud"], key="lat_dir")
-         with col2 :
+        with col2 :
             st.markdown("## Longitude")
             lon_deg = st.number_input("Longitude (degrés)", value=0, step=1, key="lon_deg")
             lon_min = st.number_input("Longitude (minutes)", value=0, step=1, key="lon_min")
