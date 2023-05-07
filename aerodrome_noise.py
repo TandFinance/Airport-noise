@@ -26,6 +26,7 @@ with st.beta_container():
     st.markdown("# Parameters")
     with st.beta_container():
         st.markdown("## Coordonnées de points de réference")
+        st.markdown("<hr style='border-top: 2px solid blue;'>", unsafe_allow_html=True)
         col1, col2 = st.beta_columns(2)
         with col1 :
             st.markdown("## Latitude")
