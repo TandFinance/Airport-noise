@@ -32,11 +32,11 @@ with st.beta_container():
             with st.beta_container():
                 col = st.beta_columns(4)
                 with col[0] :
-                    lat_deg = st.number_input("Latitude (degrés)",min_value=0, max_value=90,  value=0, step=1, key="lat_deg")
+                    lat_deg = st.number_input("Latitude (°)",min_value=0, max_value=90,  value=0, step=1, key="lat_deg")
                 with col[1] :
-                    lat_min = st.number_input("Latitude (minutes)",min_value=0, max_value=90, value=0, step=1, key="lat_min")
+                    lat_min = st.number_input("Latitude (')",min_value=0, max_value=90, value=0, step=1, key="lat_min")
                 with col[2] :
-                    lat_sec = st.number_input("Latitude (secondes)",min_value=0, max_value=90, value=0, step=1, key="lat_sec")
+                    lat_sec = st.number_input("Latitude (")",min_value=0, max_value=90, value=0, step=1, key="lat_sec")
                 with col[3] :
                     lat_dir = st.selectbox("Latitude (direction)", ["Nord", "Sud"], key="lat_dir")
         st.markdown("""<style> .verticalLine {border-left: 2px solid blue; height: 100%; position:absolute;left: 50%;margin-left: -3px;} </style> """, unsafe_allow_html=True)
@@ -47,11 +47,11 @@ with st.beta_container():
             with st.beta_container():
                 colg = st.beta_columns(4)
                 with colg[0]:
-                    lon_deg = st.number_input("Longitude (degrés)",min_value=0, max_value=90, value=0, step=1, key="lon_deg")
+                    lon_deg = st.number_input("Longitude (°)",min_value=0, max_value=90, value=0, step=1, key="lon_deg")
                 with colg[1]:
-                    lon_min = st.number_input("Longitude (minutes)",min_value=0, max_value=90, value=0, step=1, key="lon_min")
+                    lon_min = st.number_input("Longitude (')",min_value=0, max_value=90, value=0, step=1, key="lon_min")
                 with colg[2]:
-                    lon_sec = st.number_input("Longitude (secondes)",min_value=0, max_value=90, value=0, step=1, key="lon_sec")
+                    lon_sec = st.number_input("Longitude (")",min_value=0, max_value=90, value=0, step=1, key="lon_sec")
                 with colg[3]:
                     lon_dir = st.selectbox("Longitude (direction)", ["Est", "Ouest"], key="lon_dir")
     st.markdown("<hr style='border-top: 2px solid blue;'>", unsafe_allow_html=True)
