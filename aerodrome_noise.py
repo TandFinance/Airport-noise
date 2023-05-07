@@ -26,14 +26,19 @@ with st.beta_container():
     st.markdown("# Parameters")
     with st.beta_container():
         st.markdown("## Coordonnées de points de réference")
-        lat_deg = st.number_input("Latitude (degrés)", value=0, step=1, key="lat_deg")
-        lat_min = st.number_input("Latitude (minutes)", value=0, step=1, key="lat_min")
-        lat_sec = st.number_input("Latitude (secondes)", value=0, step=1, key="lat_sec")
-        lat_dir = st.selectbox("Latitude (direction)", ["Nord", "Sud"], key="lat_dir")
-        lon_deg = st.number_input("Longitude (degrés)", value=0, step=1, key="lon_deg")
-        lon_min = st.number_input("Longitude (minutes)", value=0, step=1, key="lon_min")
-        lon_sec = st.number_input("Longitude (secondes)", value=0, step=1, key="lon_sec")
-        lon_dir = st.selectbox("Longitude (direction)", ["Est", "Ouest"], key="lon_dir")
+        col1, col2 = st.beta_columns(2)
+        with col1 :
+            st.markdown("## Latitude")
+            lat_deg = st.number_input("Latitude (degrés)", value=0, step=1, key="lat_deg")
+            lat_min = st.number_input("Latitude (minutes)", value=0, step=1, key="lat_min")
+            lat_sec = st.number_input("Latitude (secondes)", value=0, step=1, key="lat_sec")
+            lat_dir = st.selectbox("Latitude (direction)", ["Nord", "Sud"], key="lat_dir")
+         with col2 :
+            st.markdown("## Longitude")
+            lon_deg = st.number_input("Longitude (degrés)", value=0, step=1, key="lon_deg")
+            lon_min = st.number_input("Longitude (minutes)", value=0, step=1, key="lon_min")
+            lon_sec = st.number_input("Longitude (secondes)", value=0, step=1, key="lon_sec")
+            lon_dir = st.selectbox("Longitude (direction)", ["Est", "Ouest"], key="lon_dir")
 
     with st.beta_container():
         st.markdown("## Autres paramètres")
