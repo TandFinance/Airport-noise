@@ -55,7 +55,7 @@ with st.beta_container():
                     lat_sec = st.number_input("Latitude (secondes)",min_value=0, max_value=90, value=0, step=1, key="lat_sec")
                 with col[3] :
                     lat_dir = st.selectbox("Latitude (direction)", ["Nord", "Sud"], key="lat_dir")
-         with colb :
+        with colb :
             st.markdown('<div class="verticalLine"></div>', unsafe_allow_html=True)
         with col2 :
             st.markdown("## Longitude")
