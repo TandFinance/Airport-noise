@@ -8,4 +8,4 @@ Profil="background.png"
 with st.container ():
     st.title(Title)
     st.image(Profil)
-with st.container():  st.markdown(aircraft_typ
+with st.container():  st.markdown(aircraft_type)
