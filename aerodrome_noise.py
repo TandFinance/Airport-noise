@@ -14,7 +14,7 @@ with st.container ():
     f"""
     <style>
         .reportview-container {{
-            background: url(Profil) no-repeat center center fixed; 
+            background: Profil no-repeat center center fixed; 
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
