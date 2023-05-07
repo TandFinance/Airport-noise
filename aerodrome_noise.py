@@ -6,22 +6,6 @@ aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
 # Set page title and background image
 
 st.set_page_config(page_title="IFP NOISE", page_icon=":sound:", layout="wide", initial_sidebar_state="expanded")
-st.markdown(
-    f"""
-    <style>
-        .reportview-container {{
-            background: url("./background.png") no-repeat center center fixed; 
-            -webkit-background-size: cover;
-            -moz-background-size: cover;
-            -o-background-size: cover;
-            background-size: cover;
-        }}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
-
 Title="IFP NOISE"
 Profil="background.png"
 with st.container ():
