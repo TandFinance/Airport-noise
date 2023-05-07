@@ -1,21 +1,5 @@
 import streamlit as st
 import pandas as pd
-
-st.markdown(
-    """
-    <style>
-    .verticalLine {
-        border-left: 2px solid blue;
-        height: 100%;
-        position:absolute;
-        left: 50%;
-        margin-left: -3px;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True,
-)
-
 # Read aircraft options from file
 aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
 
@@ -55,6 +39,7 @@ with st.beta_container():
                     lat_sec = st.number_input("Latitude (secondes)",min_value=0, max_value=90, value=0, step=1, key="lat_sec")
                 with col[3] :
                     lat_dir = st.selectbox("Latitude (direction)", ["Nord", "Sud"], key="lat_dir")
+        st.markdown("""<style> .verticalLine {border-left: 2px solid blue; height: 100%; position:absolute;left: 50%;margin-left: -3px;} </style> """, unsafe_allow_html=True)
         with colb :
             st.markdown('<div class="verticalLine"></div>', unsafe_allow_html=True)
         with col2 :
