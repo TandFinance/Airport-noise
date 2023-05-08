@@ -11,7 +11,7 @@ ac=Para.loc["ac"].values[0]
 Mvt=Para.loc["Mvt"].values[0]
 #Lat Degr, Min, Sec
 if Lat>0:
-    Lato"Nord"
+    Lato="Nord"
 else:
     Lato="Sud"
     Lat=-Lat
