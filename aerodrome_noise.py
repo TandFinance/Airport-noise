@@ -7,8 +7,8 @@ Lat=float(Para.loc["Lat"].values[0])
 Lon=float(Para.loc["Lon"].values[0])
 R=int(Para.loc["R"].values[0])
 P=int(Para.loc["P"].values[0])
-T=int(Para.loc["T"].values[0])
-d=int(Para.loc["d"].values[0])
+T=float(Para.loc["T"].values[0])
+d=float(Para.loc["d"].values[0])
 ac=Para.loc["ac"].values[0]
 Mvt=Para.loc["Mvt"].values[0]
 #Lat Degr, Min, Sec
