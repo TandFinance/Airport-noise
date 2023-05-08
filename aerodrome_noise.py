@@ -37,7 +37,7 @@ with st.container ():
     st.title(Title)
     st.image(Profil)
     Para
-    Lat
+    Lats
 # Add parameters group
 with st.beta_container():
     st.markdown("# Parameters")
