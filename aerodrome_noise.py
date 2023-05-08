@@ -11,7 +11,7 @@ Profil="background.png"
 with st.container ():
     st.title(Title)
     st.image(Profil)
-    Para.loc["Lat"]
+    Para.loc["Lat"].values[0]
 # Add parameters group
 with st.beta_container():
     st.markdown("# Parameters")
