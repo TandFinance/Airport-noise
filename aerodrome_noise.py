@@ -21,7 +21,7 @@ Latm=int(Latm1)
 Lats=int((Latm1-Latm)*60)
 #Lon Degr, Min, Sec
 if Lon>0:
-    Lono"Est"
+    Lono="Est"
 else:
     Lono="Ouest"
     Lon=-Lon
