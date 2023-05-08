@@ -15,7 +15,7 @@ if Lat>0:
 else:
     Lato=["Sud","Nord"]
     Lat=-Lat
-Latm=int(Lat)
+Latd=int(Lat)
 Latm1=(Lat-Latd)*60
 Latm=int(Latm1)
 Lats=int((Latm1-Latm)*60)
@@ -37,7 +37,7 @@ with st.container ():
     st.title(Title)
     st.image(Profil)
     Para
-    Latd
+    Latm
 # Add parameters group
 with st.beta_container():
     st.markdown("# Parameters")
