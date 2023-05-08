@@ -5,6 +5,30 @@ aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
 Para=pd.read_csv("parameters.csv")
 Lat=Para.loc["Lat"].values[0]
 Lon=Para.loc["Lon"].values[0]
+R=Para.loc["R"].values[0]
+P=Para.loc["P"].values[0]
+ac=Para.loc["ac"].values[0]
+Mvt=Para.loc["Mvt"].values[0]
+#Lat Degr, Min, Sec
+if Lat>0:
+    Lato"Nord"
+else:
+    Lato="Sud"
+    Lat=-Lat
+Latd=int(Lat)
+Latm1=(Lat-Latd)*60
+Latm=int(Latm1)
+Lats=int((Latm1-Latm)*60)
+#Lon Degr, Min, Sec
+if Lon>0:
+    Lono"Est"
+else:
+    Lono="Ouest"
+    Lon=-Lon
+Lond=int(Lon)
+Lonm1=(Lon-Lond)*60
+Lonm=int(Lonm1)
+Lons=int((Lonm1-Lonm)*60)
 # Set page title and background image
 st.set_page_config(page_title="IFP NOISE", page_icon=":sound:", layout="wide", initial_sidebar_state="expanded")
 Title="IFP NOISE"
@@ -25,13 +49,13 @@ with st.beta_container():
             with st.beta_container():
                 col = st.beta_columns(4)
                 with col[0] :
-                    lat_deg = st.number_input("Latitude (°)",min_value=0, max_value=90,  value=0, step=1, key="lat_deg")
+                    lat_deg = st.number_input("Latitude (°)",min_value=0, max_value=90,  value=Latd, step=1, key="lat_deg")
                 with col[1] :
-                    lat_min = st.number_input("Latitude (min)",min_value=0, max_value=90, value=0, step=1, key="lat_min")
+                    lat_min = st.number_input("Latitude (min)",min_value=0, max_value=90, value=Latm, step=1, key="lat_min")
                 with col[2] :
-                    lat_sec = st.number_input("Latitude (sec)",min_value=0, max_value=90, value=0, step=1, key="lat_sec")
+                    lat_sec = st.number_input("Latitude (sec)",min_value=0, max_value=90, value=Lats, step=1, key="lat_sec")
                 with col[3] :
-                    lat_dir = st.selectbox("Latitude (direction)", ["Nord", "Sud"], key="lat_dir")
+                    lat_dir = st.selectbox("Latitude (direction)", ["Nord", "Sud"], key="lat_dir",value=Lato)
         st.markdown("""<style> .verticalLine {border-left: 2px solid blue; height: 100%; position:absolute;left: 50%;margin-left: -3px;} </style> """, unsafe_allow_html=True)
         with colb :
             st.markdown('<div class="verticalLine"></div>', unsafe_allow_html=True)
