@@ -3,7 +3,7 @@ import pandas as pd
 # Read aircraft options from file
 aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
 Para=pd.read_csv("parameters.csv")
-Lat=Para.loc["Lat"].values[0]
+Lat=float(Para.loc["Lat"].values[0])
 Lon=Para.loc["Lon"].values[0]
 R=Para.loc["R"].values[0]
 P=Para.loc["P"].values[0]
