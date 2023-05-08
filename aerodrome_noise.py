@@ -13,7 +13,7 @@ Mvt=Para.loc["Mvt"].values[0]
 if Lat>0:
     Lato=["Nord","Sud"]
 else:
-    Lato=["Sud","Nord]
+    Lato=["Sud","Nord"]
     Lat=-Lat
 Latd=int(Lat)
 Latm1=(Lat-Latd)*60
@@ -23,7 +23,7 @@ Lats=int((Latm1-Latm)*60)
 if Lon>0:
     Lono=["Est","Ouest"]
 else:
-    Lono=["Ouest","Est]
+    Lono=["Ouest","Est"]
     Lon=-Lon
 Lond=int(Lon)
 Lonm1=(Lon-Lond)*60
