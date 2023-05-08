@@ -3,15 +3,16 @@ import pandas as pd
 # Read aircraft options from file
 aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
 Para=pd.read_csv("parameters.csv")
+Lat=Para.loc["Lat"].values[0]
+Lon=Para.loc["Lon"].values[0]
 # Set page title and background image
-
 st.set_page_config(page_title="IFP NOISE", page_icon=":sound:", layout="wide", initial_sidebar_state="expanded")
 Title="IFP NOISE"
 Profil="background.png"
 with st.container ():
     st.title(Title)
     st.image(Profil)
-    Para.loc["Lat"].values[0]
+    Para
 # Add parameters group
 with st.beta_container():
     st.markdown("# Parameters")
