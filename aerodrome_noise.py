@@ -75,8 +75,8 @@ with st.beta_container():
     st.markdown("<hr style='border-top: 2px solid blue;'>", unsafe_allow_html=True)
     with st.beta_container():
         st.markdown("## Autres paramètres")
-        rayon = st.slider("Rayon (m)", min_value=100, max_value=1000, step=20, value=100)
-        pas = st.slider("Pas (m)", min_value=50, max_value=500, step=10, value=100)
+        rayon = st.slider("Rayon (m)", min_value=5, max_value=50, value=R)
+        pas = st.slider("Pas (m)", min_value=50, max_value=500, step=10, value=P)
         temp = st.number_input("Température (°C)", value=0.0, step=0.1, format="%.1f")
         densite = st.number_input("Densité", min_value=0.7, max_value=2.0, step=0.1, value=1.0, format="%.1f")
    
