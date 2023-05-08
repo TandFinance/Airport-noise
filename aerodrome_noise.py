@@ -7,6 +7,8 @@ Lat=float(Para.loc["Lat"].values[0])
 Lon=float(Para.loc["Lon"].values[0])
 R=int(Para.loc["R"].values[0])
 P=int(Para.loc["P"].values[0])
+T=int(Para.loc["T"].values[0])
+d=int(Para.loc["d"].values[0])
 ac=Para.loc["ac"].values[0]
 Mvt=Para.loc["Mvt"].values[0]
 #Lat Degr, Min, Sec
@@ -77,8 +79,8 @@ with st.beta_container():
         st.markdown("## Autres paramètres")
         rayon = st.slider("Rayon (m)", min_value=5, max_value=50, value=R)
         pas = st.slider("Pas (m)", min_value=50, max_value=500, step=10, value=P)
-        temp = st.number_input("Température (°C)", value=0.0, step=0.1, format="%.1f")
-        densite = st.number_input("Densité", min_value=0.7, max_value=2.0, step=0.1, value=1.0, format="%.1f")
+        temp = st.number_input("Température (°C)", value=T, step=0.1, format="%.1f")
+        densite = st.number_input("Densité", min_value=0.7, max_value=2.0, step=0.1, value=d, format="%.1f")
    
     st.markdown("<hr style='border-top: 2px solid blue;'>", unsafe_allow_html=True)
     with st.beta_container():
