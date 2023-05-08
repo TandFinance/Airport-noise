@@ -4,9 +4,9 @@ import pandas as pd
 aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
 Para=pd.read_csv("parameters.csv")
 Lat=float(Para.loc["Lat"].values[0])
-Lon=Para.loc["Lon"].values[0]
-R=Para.loc["R"].values[0]
-P=Para.loc["P"].values[0]
+Lon=float(Para.loc["Lon"].values[0])
+R=int(Para.loc["R"].values[0])
+P=int(Para.loc["P"].values[0])
 ac=Para.loc["ac"].values[0]
 Mvt=Para.loc["Mvt"].values[0]
 #Lat Degr, Min, Sec
