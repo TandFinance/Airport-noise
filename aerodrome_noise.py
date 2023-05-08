@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 # Read aircraft options from file
 aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
-Para=pd.read_csv("aircraft_option.csv")["Type"].tolist()
+Para=pd.read_csv("Parameters.csv")
 # Set page title and background image
 
 st.set_page_config(page_title="IFP NOISE", page_icon=":sound:", layout="wide", initial_sidebar_state="expanded")
