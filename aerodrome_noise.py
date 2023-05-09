@@ -110,7 +110,7 @@ with st.container():
         Para["Param"]=[Lat,Lon,rayon,pas,temp,aircraft_type,mouvements,densite]
         Para.to_csv("parameters.csv")
         # Get the repo you want to commit to
-        repo = g.get_user().get_repo("TandFinance/Airport-noise")
+        repo = g.get_user().get_repo("Airport-noise")
 
         # Get the contents of the file you want to update
         file = repo.get_contents("parameters.csv")
