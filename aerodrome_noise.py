@@ -3,7 +3,7 @@ import pandas as pd
 from github import Github
 
 # Authenticate with your GitHub access token
-g = Github("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")
+g = Github("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")
 # Functions
 # Define function to convert degree, minute, second to decimal degrees
 def dms_to_dd(d: float, m: float, s: float, dir: str) -> float:
