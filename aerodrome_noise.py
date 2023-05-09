@@ -106,4 +106,5 @@ with st.container():
         Lat=float(Para.loc["Lat"].values[0])
         Lon=float(Para.loc["Lon"].values[0])
         Para["Param"]=[Lat,Lon,rayon,pas,temp,aircraft_type,mouvements,densite]
-        Para.to_csv("parameters.csv")
+        Para
+        #Para.to_csv("parameters.csv")
