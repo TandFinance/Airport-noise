@@ -115,7 +115,7 @@ with st.container():
         # Get the contents of the file you want to update
         file = repo.get_contents("parameters.csv")
         # Commit the changes to the file
-        repo.update_file(file.path,"Commit message",Para.to_csv(index=False),file.sha)
+        repo.update_file(file.path,"Commit message",Para.to_csv(),file.sha)
         # Success message
         st.success("File saved successfully to GitHub!")
         st.markdown("**Saved**")
