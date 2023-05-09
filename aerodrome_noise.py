@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-
 # Functions
 # Define function to convert degree, minute, second to decimal degrees
 def dms_to_dd(d: float, m: float, s: float, dir: str) -> float:
