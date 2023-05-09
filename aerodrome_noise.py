@@ -1,9 +1,6 @@
 import streamlit as st
 import pandas as pd
-from github import Github
 
-# Authenticate with your GitHub access token
-g = Github("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")
 # Functions
 # Define function to convert degree, minute, second to decimal degrees
 def dms_to_dd(d: float, m: float, s: float, dir: str) -> float:
@@ -11,6 +8,13 @@ def dms_to_dd(d: float, m: float, s: float, dir: str) -> float:
     if dir in ["Sud", "Ouest"]:
         dd = -dd
     return dd
+#**
+@st.cache_data(ttl=600)
+def load_data(sheets_url):
+    csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
+    return pd.read_csv(csv_url)
+#***********
+df = load_data(st.secrets["public_gsheets_url"])
 # Read aircraft options from file
 aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
 Para=pd.read_csv("parameters.csv")
@@ -51,6 +55,7 @@ with st.container ():
     st.image(Profil)
     Para
     Latm
+    df
 # Add parameters group
 with st.beta_container():
     st.markdown("# Parameters")
@@ -110,12 +115,3 @@ with st.container():
         Para["Param"]=[Lat,Lon,rayon,pas,temp,aircraft_type,mouvements,densite]
         Para.to_csv("parameters.csv")
         # Get the repo you want to commit to
-        repo = g.get_user().get_repo("Airport-noise")
-
-        # Get the contents of the file you want to update
-        file = repo.get_contents("parameters.csv")
-        # Commit the changes to the file
-        repo.update_file(file.path,"Commit message",Para.to_csv(),file.sha)
-        # Success message
-        st.success("File saved successfully to GitHub!")
-        st.markdown("**Saved**")
