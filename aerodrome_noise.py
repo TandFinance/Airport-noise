@@ -105,5 +105,5 @@ with st.container():
         Lon=dms_to_dd(d=lon_deg, m=lon_min, s=lon_sec, dir=lon_dir)
         Lat=float(Para.loc["Lat"].values[0])
         Lon=float(Para.loc["Lon"].values[0])
-        Para["Param"]=[Lat,Lon,rayon,pas,temp,aircraft_type,mouvement,densite]
+        Para["Param"]=[Lat,Lon,rayon,pas,temp,aircraft_type,mouvements,densite]
         Para.to_csv("parameters.csv")
