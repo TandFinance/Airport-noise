@@ -13,7 +13,7 @@ def load_data(sheets_url):
     csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
     return pd.read_csv(csv_url)
 #***********
-df = load_data(st.secrets["public_gsheets_url"])
+df = load_data(st.secrets["https://docs.google.com/spreadsheets/d/1zrkTEMk6QLvrQPmXv6RBo95AoC6uJQ985HihgCYgAZ0/edit?usp=sharing"])
 # Read aircraft options from file
 aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
 Para=pd.read_csv("parameters.csv")
