@@ -104,4 +104,4 @@ with st.container():
         Lat=dms_to_dd(d=lat_deg, m=lat_min, s=lat_sec, dir=lat_dir)
         Lon=dms_to_dd(d=lon_deg, m=lon_min, s=lon_sec, dir=lon_dir)
         Para["Param"]=[Lat,Lon,rayon,pas,temp,aircraft_type,mouvements,densite]
-        Para.to_csv("parameters.csv")
+        Para.to_csv("parameters2.csv")
