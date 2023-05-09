@@ -1,5 +1,12 @@
 import streamlit as st
 import pandas as pd
+# Functions
+# Define function to convert degree, minute, second to decimal degrees
+def dms_to_dd(d: float, m: float, s: float, dir: str) -> float:
+    dd = d + m / 60 + s / 3600
+    if dir in ["Sud", "Ouest"]:
+        dd = -dd
+    return dd
 # Read aircraft options from file
 aircraft_options = pd.read_csv("aircraft_option.csv")["Type"].tolist()
 Para=pd.read_csv("parameters.csv")
@@ -90,3 +97,13 @@ with st.beta_container():
     with st.beta_container():
         st.markdown("## Mouvements")
         mouvements = st.selectbox("Mouvements", ["Arrivée", "Départ"])
+# Save changes
+with st.container():
+    if st.button("Calculate Noise"):
+        # Perform action here
+        Lat=dms_to_dd(d=lat_deg, m=lat_min, s=lat_sec, dir=lat_dir)
+        Lon=dms_to_dd(d=lon_deg, m=lon_min, s=lon_sec, dir=lon_dir)
+        Lat=float(Para.loc["Lat"].values[0])
+        Lon=float(Para.loc["Lon"].values[0])
+        Para["Param"]=[Lat,Lon,rayon,pas,temp,aircraft_type,mouvement,densite]
+        Para.to_csv("parameters.csv")
