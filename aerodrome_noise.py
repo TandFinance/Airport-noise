@@ -1,5 +1,9 @@
 import streamlit as st
 import pandas as pd
+from github import Github
+
+# Authenticate with your GitHub access token
+g = Github("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")
 # Functions
 # Define function to convert degree, minute, second to decimal degrees
 def dms_to_dd(d: float, m: float, s: float, dir: str) -> float:
@@ -104,5 +108,14 @@ with st.container():
         Lat=dms_to_dd(d=lat_deg, m=lat_min, s=lat_sec, dir=lat_dir)
         Lon=dms_to_dd(d=lon_deg, m=lon_min, s=lon_sec, dir=lon_dir)
         Para["Param"]=[Lat,Lon,rayon,pas,temp,aircraft_type,mouvements,densite]
-        Para.to_csv("parameters2.csv")
-        st.markdown("**Saved**")
+        Para.to_csv("parameters.csv")
+        # Get the repo you want to commit to
+        repo = g.get_user().get_repo("TandFinance/Airport-noise")
+
+        # Get the contents of the file you want to update
+        file = repo.get_contents("parameters.csv")
+        # Commit the changes to the file
+        repo.update_file(file.path,"Commit message",Para.to_csv(index=False),file.sha)
+        # Success message
+        st.success("File saved successfully to GitHub!")
+        st.markdown("**Saved**)
